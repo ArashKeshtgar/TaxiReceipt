@@ -56,7 +56,7 @@ Requires the .NET 10 SDK and a local SQL Server.
 
 ```powershell
 sqlcmd -S localhost -E -i db\setup-demo.sql          # demo Clock database + this month's table
-dotnet test                                           # 17 tests
+dotnet test                                           # 17 tests (also run by GitHub Actions on every push)
 dotnet run --project src\TaxiReceipt.Service          # runs in the console, same code as the service
 sqlcmd -S localhost -E -d TaxiReceiptDemo -v PersonId=1001 -i db\punch.sql   # a punch
 ```
