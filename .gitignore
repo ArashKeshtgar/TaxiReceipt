@@ -1,0 +1,9 @@
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+# Runtime output when run from the project folder
+receipts/
+state.json
+state.json.tmp
