@@ -46,6 +46,13 @@ if (-not $existing) {
     sc.exe failure $ServiceName reset= 86400 actions= restart/60000/restart/60000/restart/300000 | Out-Null
 }
 
+# The Event Log source the service logs under. Creating one needs admin, so
+# it's done here; the service's own account couldn't.
+if (-not [System.Diagnostics.EventLog]::SourceExists($ServiceName)) {
+    [System.Diagnostics.EventLog]::CreateEventSource($ServiceName, 'Application')
+    Write-Host "Registered Event Log source '$ServiceName'."
+}
+
 # The service writes state.json and receipts\ in its own folder. A virtual
 # account only exists once the service does, so this comes after sc create.
 icacls $InstallDir /grant "${Account}:(OI)(CI)M" /T /Q | Out-Null
